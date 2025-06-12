@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page2</title>
+</head>
+<body>
+<input type="submit" class="logg" value="logout" onclick="logout()">
+<script>
+    async function logout() {
+        fetch('/logout', { method: 'POST' })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '/index.html'; // or wherever your home is
+                }
+            });
+    }
+</script>
+</body>
+</html>
