@@ -24,6 +24,6 @@ async function login() {
     if(res.status === 200){
         window.location.href = '../views/Page1/page1.html';
     }else{
-        alert(data.message);
+        alert(data.error);
     }
 }
