@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="create_acc_student.css">
+    <title>LearnGate.com</title>
+</head>
+<body>
+  <p class="nass">learn gate</p>
+    <div class="container">
+        <h1>إنشاء حساب طالب</h1>
+        <form  onsubmit="val()">
+            <!-- الرقم الجامعي -->
+            <div class="form-group">
+                <label for="student-id">الرقم الجامعي</label>
+                <input type="number" id="student-id" required>
+            </div>
+
+            <!-- الاسم -->
+            <div class="form-group">
+                <label for="first-name">الاسم الأول</label>
+                <input type="text" id="first-name" required>
+                
+                <label for="last-name">الاسم الثاني</label>
+                <input type="text" id="last-name" required>
+            </div>
+
+            <!-- التخصص -->
+            <div class="form-group">
+                <label>التخصص</label>
+                <select id="sec">
+                    <option value="">اختر التخصص</option>
+                    <option value="1">هندسة حواسيب</option>
+                    <option value="2">هندسة برمجيات</option>
+                </select>
+            </div>
+
+            <!-- السنة الدراسية -->
+            <div class="form-group">
+                <label>السنة الدراسية</label>
+                <select id="year">
+                    <option value="">اختر السنة</option>
+                    <option value="1">أولى</option>
+                    <option value="2">ثانية</option>
+                </select>
+            </div>
+
+            <!-- الجنس -->
+            <div class="form-group">
+                <label>الجنس</label>
+                <select id="gender">
+                    <option value="">اختر الجنس</option>
+                    <option value="male">ذكر</option>
+                    <option value="female">أنثى</option>
+                </select>
+            </div>
+
+            <!-- كلمة المرور -->
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+                <input type="text" id="password" required>
+            </div>
+
+            <!-- تأكيد كلمة المرور -->
+            <div class="form-group">
+                <label for="confirm-password">تأكيد كلمة المرور</label>
+                <input type="password" id="confirm-password" required>
+            </div>
+<button type="submit">إنشاء الحساب</button>
+        </form>
+    </div>
+    <script>
+      var x=document.getElementById("password")
+      var y=document.getElementById("confirm-password")
+    async function  val(){
+        if(x.value==y.value){
+        const studentid =document.getElementById('student-id').value;
+            const firstname =document.getElementById('first-name').value;
+            const lastname =document.getElementById('last-name').value;
+            const sec = document.getElementById('sec').value;
+            const year=document.getElementById('year').value;
+            const gen =document.getElementById('gender').value;
+            const password = document.getElementById('password').value;
+
+            const res = await fetch('/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ studentid, password,sec,year,gen,fullname:`${firstname} ${lastname}`})
+            });
+
+            const data = await res.json();
+            alert('hello');}
+        else{
+          alert("كلمة المرور غير متوافقة !!")
+        }
+      }
+    </script>
+</body>
+</html>

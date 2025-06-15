@@ -1,0 +1,138 @@
+@font-face{
+  src:url(fonts/خط\ خيال\ Khayal\ @ALADWAT.ttf) ;
+  font-family:kl;
+}
+@font-face{
+  src: url(fonts/خط\ مسلمة\ لايت\ muslimah\ light\ @ALADWAT.ttf);
+font-family:muslimah;
+}
+@font-face{
+  src: url(fonts/Pandaify-f0eb7f5938052cb2f3342ab095c1c3fc.ttf);
+  font-family:khh;
+}
+@font-face{
+  src: url(fonts/BalooBhaijaan-Regular.ttf);
+  font-family:baloo;
+}
+
+
+
+body{
+  background:linear-gradient(to left , white ,rgb(33, 164 , 224));
+  height: 100%;
+  margin: 60px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nass{
+  color:#052659;
+  position:absolute;
+  font-family:khh;
+  font-size:55px;
+  font-weight: bold;
+left:10px;
+bottom:570px;
+}
+
+.container{
+  width: 350px;
+  height:500px;
+  border:#052659 8px solid;
+  background-color: #052659;
+  border-radius:9px;
+}
+
+.insha_hisab{
+  text-align: center;
+font-size:40px;
+color: rgb(255, 255, 255);
+font-family:baloo;
+}
+
+hr{
+  border: none;
+  border-top:2px solid rgb(33 , 164 , 224);
+  width:250px;
+  position: relative;
+  bottom:40px;
+}
+
+.taleb{
+  background-color:white;
+  color:rgb(33, 164 , 224);
+  font-size: 20px;
+  font-weight:bold;
+  font-family:baloo;
+  height:40px;
+  width:250px;
+  border:1px;
+  border-style:solid;
+  border-color:white;
+  border-radius:9px;
+  position: relative;
+  top:40px;
+  left:50px;
+  transition:background-color 1s, color 1s;
+}
+
+.taleb:hover{
+  background-color: rgb(33 , 164 , 224);
+  color:white;
+  border-color:rgb(33, 164 , 224);
+}
+.taleb:active{
+  opacity:0.6;
+}
+
+.modares{
+  background-color:white;
+  color:rgb(33, 164 , 224);
+  font-size: 20px;
+  font-weight:bold;
+  font-family:baloo;
+  height:40px;
+  width:250px;
+  border:1px;
+  border-style:solid;
+  border-color:white;
+  border-radius:9px;
+  position: relative;
+  top:70px;
+  left:50px;
+  transition:background-color 1s, color 1s;
+}
+.modares:hover{
+  background-color: rgb(33, 164 , 224);
+  color:white;
+  border-color:rgb(33, 164 , 224);
+}
+.modares:active{
+  opacity:0.6;
+}
+.mowad{
+  background-color:white;
+  color:rgb(33, 164 , 224);
+  font-size: 20px;
+  font-weight:bold;
+  font-family:baloo;
+  height:40px;
+  width:250px;
+  border:1px;
+  border-style:solid;
+  border-color:rgb(33, 164 , 224);
+  border-radius:9px;
+  position: relative;
+  top:100px;
+  left:50px;
+  transition:background-color 1s, color 1s;
+}
+.mowad:hover{
+  background-color: rgb(33, 164 , 224);
+  color:white;
+  border-color:rgb(33, 164 , 224);
+}
+.mowad:active{
+  opacity:0.6;
+}

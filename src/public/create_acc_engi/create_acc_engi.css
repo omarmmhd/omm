@@ -1,0 +1,114 @@
+@font-face{
+  src: url(fonts/BalooBhaijaan-Regular.ttf);
+  font-family:baloo;
+ }
+ @font-face {
+  font-family:mon;
+  src: url(fonts/Monadi.ttf);
+ }
+ @font-face {
+  font-family:khh;
+  src: url(fonts/Pandaify-f0eb7f5938052cb2f3342ab095c1c3fc.ttf);
+ }
+ body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin:12px;
+            background:linear-gradient(to left , white ,rgb(33, 164 , 224));
+        }
+
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width:100%;
+            max-width: 400px;
+            background-color:#052659;
+            border:#052659 8px solid;
+        }
+
+        h1 {
+            text-align: center;
+            color:white;
+            font-family:baloo;
+            position: relative;
+            bottom:30px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color:white;
+            font-family:baloo;
+            font-size:25px;
+            position: relative;
+            left:25px;
+
+        }
+
+        input, select {
+            width: 105%;
+            padding: 0.75rem;
+            background-color:rgba(255,255,255,0.1);
+            border: 1px solid rgb(33, 164 , 224);
+            border-radius:20px;
+            color:white;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            left:25px;
+            font-family:baloo;
+        }
+
+        select {
+            appearance: none;
+            background-color:rgb(33, 164 , 224);
+            font-family:baloo;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 2px #e8f0fe;
+        }
+
+        button {
+            background-color:rgb(33, 164 , 224);
+            color: white;
+            font-size: 20px;
+            font-weight:bold;
+            font-family:baloo;
+            padding: 0.75rem 1.5rem;
+            border:1px rgb(33, 164 , 224) solid;
+            border-radius:20px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+          background-color:white;
+          color:rgb(33, 164 , 224);
+          border-color:white;
+        }
+        button:active{
+          opacity:0.6;
+        }
+        .nass{
+          color:white;
+          position:absolute;
+          font-family:khh;
+          font-size:65px;
+          font-weight: bold;
+        left:10px;
+        bottom:485px;
+        }

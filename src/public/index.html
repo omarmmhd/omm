@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>learn gate.com</title>
   <link rel="website icon" type="png" href="1732962092705.png">
-  <link rel="stylesheet" href="log in page.css">
+  <link rel="stylesheet" href="assets/log%20in%20page.css">
 </head>
 <body>
+  <script src="homePage.js"></script>
   <p class="lg_english">Learn Gate</p>
   <p class="lg_arabic">بوابة التعلم</p>
    
@@ -25,35 +26,9 @@
 <input type="password" name="" id="password" class="passinput">
 <div class="div_showpass">إظهار كلمة المرور<input type="checkbox" name="" id="showpass" onchange="togglepasswordvisibility()"></div>
 <input type="submit" class="logg" value="تسجيل الدخول" onclick="login()">
-<a href="file:///C:/Users/AL-Madina/Desktop/choosing/choosing.html" class="rabt">إنشاء حساب</a>
+<a href="choosing.html" class="rabt">إنشاء حساب</a>
     </form>
 
   </div>
-  <script>
-    function togglepasswordvisibility(){
-      x=document.getElementById("password");
-      y=document.getElementById("showpass");
-      if(y.checked){
-        x.type="text"
-      }
-      else{
-        x.type="password"
-      }
-    }
-    /******/
-    async function login() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            const res = await fetch('/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
-            });
-
-            const data = await res.json();
-            alert(data.message || data.error);
-        }
-  </script>
 </body>
 </html>
