@@ -68,13 +68,27 @@ app.post('/register', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(password,10);
         await sql.connect(dbConfig);
-        await sql.query(`INSERT INTO StudentProfile (fullName , StudentID , password  ,Major ) VALUES ('${fullname}' , '${studentid}' ,'${hashedPassword}', ${sec})`);
+        await sql.query(`INSERT INTO StudentProfile (fullName , StudentID , password  , section ,year , gender) VALUES ('${fullname}' , '${studentid}' ,'${hashedPassword}', '${sec}' ,'${year}' ,'${gen}')`);
         res.send({ message: 'تم التسجيل بنجاح' });
     } catch (err) {
         console.error(err);
         res.status(500).send({ error: 'حدث خطأ بالسيرفر' });
     }
 });
+/**/ app.post('/registerEngineer', async (req, res) => {
+    const {engnumber,engemail ,password,spec,startdate,gen,fullname} = req.body;
+    const userid = uuidv4();
+    try {
+        const hashedPassword = await bcrypt.hash(password,10);
+        await sql.connect(dbConfig);
+        await sql.query(`INSERT INTO TeacherProfile (fullName , engNumber, password  , specialty ,startDate , gender ,engEmail) VALUES ('${fullname}' , '${engnumber}' ,'${hashedPassword}', '${spec}' ,'${startdate}' ,'${gen}','${engemail}')`);
+        res.send({ message: 'تم التسجيل بنجاح' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ error: 'حدث خطأ بالسيرفر' });
+    }
+});
+/**/
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
 

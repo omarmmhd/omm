@@ -11,7 +11,7 @@
   <p class="nass">learn gate</p>
     <div class="container">
         <h1>إنشاء حساب طالب</h1>
-        <form  onsubmit="val()">
+        <form  onsubmit="val(); return false;">
             <!-- الرقم الجامعي -->
             <div class="form-group">
                 <label for="student-id">الرقم الجامعي</label>
@@ -32,8 +32,8 @@
                 <label>التخصص</label>
                 <select id="sec">
                     <option value="">اختر التخصص</option>
-                    <option value="1">هندسة حواسيب</option>
-                    <option value="2">هندسة برمجيات</option>
+                    <option value="hardware">هندسة حواسيب</option>
+                    <option value="software">هندسة برمجيات</option>
                 </select>
             </div>
 
