@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="main_ui_emp.css">
+</head>
+<body>
+  <nav>
+    <ul>
+          <li><a href="file:///C:/Users/AL-Madina/Desktop/login_page/log%20in%20page.html" class="lg">Learn Gate</a></li>
+          <li class="hideonmobile"><a href="#" onclick="showContent('home')">رفع نتائج الامتحانات</a></li>
+          <li class="hideonmobile"><a href="#" onclick="showContent('announcements')">إضافة إعلان</a></li>
+          <li class="hideonmobile"><a href="#" onclick="showContent('profile')">الملف الشخصي</a></li>
+        </ul>
+      </nav>
+<div class="content" id="announcements">
+  <div class="ad-uploader">
+    <div class="ad-container">
+      <h2>رفع إعلان</h2>
+      <button id="textAdBtn">إضافة إعلان نصي</button>
+      <button id="imageAdBtn">إضافة إعلان (ملف_صورة)  </button>
+
+      <div class="form-section" id="textForm">
+        <textarea id="textAd" placeholder="اكتب إعلانك هنا..."></textarea>
+      </div>
+
+      <div class="form-section" id="imageForm">
+        <input type="file" accept="image/*" id="imageInput">
+      </div>
+
+      <button id="submitBtn" class="sub_button">إرسال الإعلان</button>
+    </div>
+  </div>
+</div>
+
+<!----> <!----> <!---->
+
+
+<div class="content" id="home">
+  <div class="container1">
+    <h2>رفع علامات الطلاب</h2>
+
+    <form id="gradeForm">
+      <label for="subject">المادة:</label>
+      <select id="subject" required>
+        <option value="">اختر المادة</option>
+        <option value="">برمجة</option>
+        <option value="">دارات إلكترونية</option>
+        <option value="">مدخل إلى الحاسوب</option>
+      </select>
+
+      <label for="year">السنة الدراسية:</label>
+      <select id="year" required>
+        <option value="">اختر السنة</option>
+        <option value="1">السنة الأولى</option>
+        <option value="2">السنة الثانية</option>
+      </select>
+
+      <label for="major">الاختصاص:</label>
+      <select id="major" required>
+        <option value="">اختر الاختصاص</option>
+        <option value="برمجيات">برمجيات</option>
+        <option value="حواسيب">حواسيب</option>
+      </select>
+
+      <label for="studentId">رقم الطالب:</label>
+      <input type="text" id="studentId" required class="in1">
+
+      <label for="grade">العلامة:</label>
+      <input type="number" id="grade" min="0" max="100" required class="in2">
+
+      <button type="submit" class="btn1">إرسال العلامة</button>
+    </form>
+
+    <p id="resultMessage"></p>
+  </div>
+</div>
+<div class="content" id="profile">
+  <div class="container">
+    <div class="header">
+        <h1>الملـف الشخـصي</h1>
+    </div>
+    
+    <div class="profile-content">
+        <img src="" alt="" class="profile-picture" id="profileImage">
+        <input type="file" id="imageUpload" class="file-input" accept="image/*">
+        
+        <div class="profile-info">
+            <div class="info-group">
+                <label class="info-label">الاسم الكامل</label>
+                <div class="info-value" id="name"></div>
+                <input type="text" class="edit-input" id="nameInput" value="" style="display: none;">
+</div>
+            
+            <div class="info-group">
+                <label class="info-label">اسم الأب</label>
+                <div class="info-value" id="fatherName"></div>
+                <input type="text" class="edit-input" id="fatherNameInput" value="" style="display: none;">
+            </div>
+            
+            <div class="info-group">
+                <label class="info-label">اسم الأم</label>
+                <div class="info-value" id="motherName"></div>
+                <input type="text" class="edit-input" id="motherNameInput" value="" style="display: none;">
+            </div>
+            
+            <div class="info-group">
+                <label class="info-label">رقم الهاتف</label>
+                <div class="info-value" id="phone_number"></div>
+                <input type="text" class="edit-input" id="phnumInput" value="" style="display: none;">
+            </div>
+            
+            <div class="info-group">
+                <label class="info-label"> الإيميل </label>
+                <div class="info-value" id="email"></div>
+                <input type="text" class="edit-input" id="emailInput" value="" style="display: none;">
+            </div>
+            
+            <div class="info-group">
+                <label class="info-label"> الاختصاص الجامعي</label>
+                <div class="info-value" id="sec"></div>
+                <input type="text" class="edit-input" id="sec" value="" style="display: none;">
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn btn-edit" id="editBtn">تعديل المعلومات</button>
+            <button class="btn btn-save" id="saveBtn">حفظ التغييرات</button>
+            <button class="btn btn-cancel" id="cancelBtn">إلغاء</button>
+        </div>
+    </div>
+</div>
+</div>
+      <script>
+         // دالة لإظهار القسم المحدد وإخفاء الباقي
+     function showContent(sectionId) {
+            // إخفاء كل الأقسام أولًا
+            const allContents = document.querySelectorAll('.content');
+            allContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // إظهار القسم المحدد فقط
+            const activeContent = document.getElementById(sectionId);
+            if (activeContent) {
+                activeContent.classList.add('active');
+            }
+        }
+        
+        // تعطيل السلوك الافتراضي للروابط (منع تحميل صفحة جديدة)
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') {
+                    e.preventDefault();
+                }
+            });
+        });
+        
+        // عند تحميل الصفحة، تأكد من إظهار القسم الرئيسي فقط
+        document.addEventListener('DOMContentLoaded', function() {
+            showContent('home');
+        });
+        /********************************home*********/
+        document.getElementById('gradeForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const data = {
+        subject: document.getElementById('subject').value,
+        year: document.getElementById('year').value,
+        major: document.getElementById('major').value,
+        studentId: document.getElementById('studentId').value,
+        grade: document.getElementById('grade').value
+      };
+
+      fetch('http://localhost:4200/api/grades', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(response => {
+        const msg = document.getElementById('resultMessage');
+        msg.textContent = "✅ تم حفظ العلامة بنجاح!";
+        msg.style.color = "green";
+        document.getElementById('gradeForm').reset();
+      })
+      .catch(error => {
+        const msg = document.getElementById('resultMessage');
+        msg.textContent = "❌ حدث خطأ أثناء الحفظ.";
+        msg.style.color = "red";
+        console.error(error);
+      });
+    });
+ 
+/*******************anoun*****************/
+const textBtn = document.getElementById('textAdBtn');
+    const imageBtn = document.getElementById('imageAdBtn');
+    const textForm = document.getElementById('textForm');
+    const imageForm = document.getElementById('imageForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const textAd = document.getElementById('textAd');
+    const imageInput = document.getElementById('imageInput');
+
+    let currentType = null;
+
+    textBtn.onclick = () => {
+      textForm.style.display = 'block';
+      imageForm.style.display = 'none';
+      submitBtn.style.display = 'block';
+      currentType = 'text';
+    };
+
+    imageBtn.onclick = () => {
+      imageForm.style.display = 'block';
+      textForm.style.display = 'none';
+      submitBtn.style.display = 'block';
+      currentType = 'image';
+    };
+
+    submitBtn.onclick = () => {
+      if (currentType === 'text') {
+        const text = textAd.value.trim();
+        if (text) {
+          alert("تم إرسال الإعلان النصي: " + text);
+        } else {
+          alert("يرجى كتابة الإعلان قبل الإرسال.");
+        }
+      } else if (currentType === 'image') {
+        const file = imageInput.files[0];
+        if (file) {
+          alert("تم اختيار الصورة: " + file.name);
+        } else {
+          alert("يرجى اختيار صورة قبل الإرسال.");
+        }
+      }
+    }; 
+    /**********************prof******************/
+    document.addEventListener('DOMContentLoaded', function() {
+            // عناصر DOM
+            const editBtn = document.getElementById('editBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const profileImage = document.getElementById('profileImage');
+            const imageUpload = document.getElementById('imageUpload');
+            
+            // عناصر المعلومات
+            const infoValues = document.querySelectorAll('.info-value');
+            const infoInputs = document.querySelectorAll('.edit-input');
+            
+            // حدث النقر على زر التعديل
+            editBtn.addEventListener('click', function() {
+                // إظهار حقول الإدخال وإخفاء النصوص
+                infoValues.forEach(value => value.style.display = 'none');
+                infoInputs.forEach(input => input.style.display = 'block');
+                
+                // إظهار أزرار الحفظ والإلغاء وإخفاء زر التعديل
+                editBtn.style.display = 'none';
+                saveBtn.style.display = 'block';
+                cancelBtn.style.display = 'block';
+            });
+            
+            // حدث النقر على زر الحفظ
+            saveBtn.addEventListener('click', function() {
+                // تحديث النصوص بقيم حقول الإدخال
+                infoValues[0].textContent = document.getElementById('nameInput').value;
+                infoValues[1].textContent = document.getElementById('fatherNameInput').value;
+                infoValues[2].textContent = document.getElementById('motherNameInput').value;
+                infoValues[3].textContent = document.getElementById('phnumInput').value;
+                infoValues[4].textContent = document.getElementById('yearInput').value;
+
+infoValues[5].textContent = document.getElementById('studentIdInput').value;
+                
+                // إظهار النصوص وإخفاء حقول الإدخال
+                infoValues.forEach(value => value.style.display = 'block');
+                infoInputs.forEach(input => input.style.display = 'none');
+                
+                // إظهار زر التعديل وإخفاء أزرار الحفظ والإلغاء
+                editBtn.style.display = 'block';
+                saveBtn.style.display = 'none';
+                cancelBtn.style.display = 'none';
+                
+                // هنا يمكنك إضافة كود لحفظ البيانات في قاعدة البيانات
+                alert('تم حفظ التغييرات بنجاح!');
+            });
+            
+            // حدث النقر على زر الإلغاء
+            cancelBtn.addEventListener('click', function() {
+                // إظهار النصوص وإخفاء حقول الإدخال
+                infoValues.forEach(value => value.style.display = 'block');
+                infoInputs.forEach(input => input.style.display = 'none');
+                
+                // إظهار زر التعديل وإخفاء أزرار الحفظ والإلغاء
+                editBtn.style.display = 'block';
+                saveBtn.style.display = 'none';
+                cancelBtn.style.display = 'none';
+            });
+            
+            // حدث النقر على صورة البروفايل
+            profileImage.addEventListener('click', function() {
+                imageUpload.click();
+            });
+            
+            // حدث تغيير صورة البروفايل
+            imageUpload.addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(event) {
+                        profileImage.src = event.target.result;
+                    }
+                    
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+            
+            // صورة افتراضية إذا لم يتم تحميل صورة
+            profileImage.src = profileImage.src || 'https://via.placeholder.com/150';
+        });
+      </script>
+</body>
+</html>

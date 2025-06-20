@@ -88,28 +88,51 @@ app.post('/register', async (req, res) => {
         res.status(500).send({ error: 'حدث خطأ بالسيرفر' });
     }
 });
+/***/ app.post('/registerEmployee', async (req, res) => {
+    const {empnumber,empemail ,password,spec,startdate,gen,fullname} = req.body;
+    const userid = uuidv4();
+    try {
+        const hashedPassword = await bcrypt.hash(password,10);
+        await sql.connect(dbConfig);
+        await sql.query(`INSERT INTO EmployeeProfile (fullName , empNumber, password  , specialty ,startDate , gender ,empEmail) VALUES ('${fullname}' , '${empnumber}' ,'${hashedPassword}', '${spec}' ,'${startdate}' ,'${gen}','${empemail}')`);
+        res.send({ message: 'تم التسجيل بنجاح' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ error: 'حدث خطأ بالسيرفر' });
+    }
+});
 /**/
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        /* await sql.connect(dbConfig);
-
+         await sql.connect(dbConfig);
+let usertype;
          const result = await sql.query
-            `SELECT * FROM Table_2 WHERE fullName = ${username}`
+            `SELECT * FROM StudentProfile WHERE fullName = ${username}`
          ;
 
-         if (result.recordset.length === 0) {11
+         if (result.recordset.length === 0) {
+            const result2 = await sql.query
+            `SELECT * FROM TeacherProfile WHERE fullName = ${username}`
+         ;
+         if(result2.recordset.length ===0){
+            const result3 = await sql.query
+         `SELECT * FROM EmployeeProfile WHERE fullName = ${username}`
+         ;
+         }
+        
+
              return res.status(401).send({ error: '❌ المستخدم غير موجود' });
          }
-
+        usertype=result.recordset.length>0?'student':'engineer';'employee'
          const user = result.recordset[0];
-         const passwordMatch = await bcrypt.compare(password, user.password);*/
+         const passwordMatch = await bcrypt.compare(password, user.password);
 
-        const passwordMatch = true;
         if (passwordMatch) {
+
             req.session.user = { username };
-            res.send({ message: '✅ تسجيل الدخول ناجح' });
+            res.send({ message: '✅ تسجيل الدخول ناجح', usertype });
         } else {
             res.status(401).send({ error: '❌ الرجاء التحقق من صحة بيانات التسجيل' });
         }

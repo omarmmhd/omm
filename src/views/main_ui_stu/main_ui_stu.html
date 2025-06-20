@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="views/main_ui_stu/main_ui_stu.css">
+  <title>LearnGate.com</title>
+</head>
+<body>
+  <nav>
+<ul>
+      <li><a href="file:///C:/Users/AL-Madina/Desktop/login_page/log%20in%20page.html" class="lg">Learn Gate</a></li>
+      <li class="hideonmobile"><a href="#" onclick="showContent('home')">تحميل المحاضرات &nbsp; <img src="download_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt=""></a></li>
+      <li class="hideonmobile"><a href="#" onclick="showContent('about')">الدرجات الامتحانية &nbsp; <img src="library_books_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt=""></a></li>
+      <li class="hideonmobile"><a href="#" onclick="showContent('announcements')">لائحة الإعلانات &nbsp;<img src="sticky_note_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt=""></a></li>
+      <li class="hideonmobile"><a href="#" onclick="showContent('profile')">الملف الشخصي&nbsp;<img src="account_circle_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt=""></a></li>
+    </ul>
+  </nav>
+  <div class="content active" id="home">
+    <div class="card">
+      <h2>تحميل المحاضرات</h2>
+  
+      <label>التخصص:</label>
+      <select id="major">
+        <option value="برمجيات">برمجيات</option>
+        <option value="حاسوب">حاسوب</option>
+      </select>
+  
+      <label>السنة:</label>
+      <select id="year">
+        <option value="أولى">أولى</option>
+        <option value="ثانية">ثانية</option>
+      </select>
+  
+      <label>المادة:</label>
+      <select id="subject"></select>
+  
+      <button onclick="fetchLectures()">عرض المحاضرات</button>
+  
+      <div id="lectureList"></div>
+    </div>
+  </div>
+  <div class="content" id="about">
+  <h2 class="the_text_marks"> &nbsp; :الدرجات الامتحانية الخاصة بالطالب</h2>
+    <table border="1" cellpadding="8" class="the_table">
+      <thead>
+        <tr>
+          <th style="width:10%;">الدرجةالامتحانية</th>
+          <th style="width:5%;">اسم المادة</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<div class="content" id="announcements">
+  <div class="announcements-header">
+    <h2 class="section-title"> الإعلانات</h2>
+    <div class="announcement-date">آخر تحديث: <span id="update-date"></span></div>
+  </div>
+  
+  <div class="announcements-container">
+    <!-- هذه الحافظة ستُملأ ديناميكيًا من قاعدة البيانات لاحقًا -->
+    <div class="empty-state">
+      <svg class="announcement-icon" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8 S16.41,20,12,20z M13,13v4h-2v-4H8l4-4l4,4H13z"/>
+      </svg>
+      <p class="empty-message">لا توجد إعلانات حالية</p>
+    </div>
+  </div>
+</div>
+<div class="content" id="profile">
+  <div class="container">
+    <div class="header">
+        <h1>الملـف الشخـصي</h1>
+    </div>
+    
+    <div class="profile-content">
+        <img src="" alt="" class="profile-picture" id="profileImage">
+        <input type="file" id="imageUpload" class="file-input" accept="image/*">
+        
+        <div class="profile-info">
+            <div class="info-group">
+                <label class="info-label">الاسم الكامل</label>
+                <div class="info-value" id="name"></div>
+                <input type="text" class="edit-input" id="nameInput" value="" style="display: none;">
+</div>
+            
+            <div class="info-group">
+                <label class="info-label">اسم الأب</label>
+                <div class="info-value" id="fatherName"></div>
+                <input type="text" class="edit-input" id="fatherNameInput" value="" style="display: none;">
+            </div>
+            
+            <div class="info-group">
+                <label class="info-label">اسم الأم</label>
+                <div class="info-value" id="motherName"></div>
+                <input type="text" class="edit-input" id="motherNameInput" value="" style="display: none;">
+            </div>
+            
+            <div class="info-group">
+                <label class="info-label">رقم الهاتف</label>
+                <div class="info-value" id="phone_number"></div>
+                <input type="text" class="edit-input" id="phnumInput" value="" style="display: none;">
+            </div>
+            
+            <div class="info-group">
+                <label class="info-label">السنة الدراسية</label>
+                <div class="info-value" id="year"></div>
+                <input type="text" class="edit-input" id="yearInput" value="" style="display: none;">
+            </div>
+            
+            <div class="info-group">
+                <label class="info-label">الرقم الجامعي</label>
+                <div class="info-value" id="studentId"></div>
+                <input type="text" class="edit-input" id="studentIdInput" value="" style="display: none;">
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn btn-edit" id="editBtn">تعديل المعلومات</button>
+            <button class="btn btn-save" id="saveBtn">حفظ التغييرات</button>
+            <button class="btn btn-cancel" id="cancelBtn">إلغاء</button>
+        </div>
+    </div>
+</div>
+</div>
+  <script>
+     // دالة لإظهار القسم المحدد وإخفاء الباقي
+     function showContent(sectionId) {
+            // إخفاء كل الأقسام أولًا
+            const allContents = document.querySelectorAll('.content');
+            allContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // إظهار القسم المحدد فقط
+            const activeContent = document.getElementById(sectionId);
+            if (activeContent) {
+                activeContent.classList.add('active');
+            }
+        }
+        
+        // تعطيل السلوك الافتراضي للروابط (منع تحميل صفحة جديدة)
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') {
+                    e.preventDefault();
+                }
+            });
+        });
+        
+        // عند تحميل الصفحة، تأكد من إظهار القسم الرئيسي فقط
+        document.addEventListener('DOMContentLoaded', function() {
+            showContent('home');
+        });
+        /***********************************home**/////////////////////////////////////////
+        const subjectMap = {
+      "برمجيات": {
+        "أولى": ["البرمجة اللغوية", "مبادئ البرمجة", "رياضيات حاسوبية"],
+        "ثانية": ["هياكل البيانات", "أنظمة تشغيل", "تحليل خوارزميات"]
+      },
+      "حاسوب": {
+        "أولى": ["مقدمة في الحاسوب", "شبكات", "مبادئ نظم المعلومات"],
+        "ثانية": ["قواعد بيانات", "ذكاء اصطناعي", "برمجة مرئية"]
+      }
+    };
+
+    const major = document.getElementById("major");
+    const year = document.getElementById("year");
+    const subject = document.getElementById("subject");
+
+    function updateSubjects() {
+      const m = major.value;
+      const y = year.value;
+      subject.innerHTML = "";
+      if (subjectMap[m] && subjectMap[m][y]) {
+        subjectMap[m][y].forEach(sub => {
+          const option = document.createElement("option");
+          option.value = sub;
+          option.textContent = sub;
+          subject.appendChild(option);
+        });
+      }
+    }
+
+    major.onchange = updateSubjects;
+    year.onchange = updateSubjects;
+
+    async function fetchLectures() {
+      const m = major.value;
+      const y = year.value;
+      const s = subject.value;
+
+      const res = await fetch(`lectures?major=${m}&year=${y}&subject=${s}`);
+      const lectures = await res.json();
+
+      const container = document.getElementById("lectureList");
+      container.innerHTML = "<h3>الملفات:</h3>";
+      lectures.forEach(file => {
+        const link = document.createElement("a");
+        link.href = file.path;
+        link.textContent = file.name;
+        link.target = "_blank";
+        container.appendChild(link);
+      });
+    }
+        //**********************************************************prof*********//******************************//
+        document.addEventListener('DOMContentLoaded', function() {
+            // عناصر DOM
+            const editBtn = document.getElementById('editBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
+            const profileImage = document.getElementById('profileImage');
+            const imageUpload = document.getElementById('imageUpload');
+            
+            // عناصر المعلومات
+            const infoValues = document.querySelectorAll('.info-value');
+            const infoInputs = document.querySelectorAll('.edit-input');
+            
+            // حدث النقر على زر التعديل
+            editBtn.addEventListener('click', function() {
+                // إظهار حقول الإدخال وإخفاء النصوص
+                infoValues.forEach(value => value.style.display = 'none');
+                infoInputs.forEach(input => input.style.display = 'block');
+                
+                // إظهار أزرار الحفظ والإلغاء وإخفاء زر التعديل
+                editBtn.style.display = 'none';
+                saveBtn.style.display = 'block';
+                cancelBtn.style.display = 'block';
+            });
+            
+            // حدث النقر على زر الحفظ
+            saveBtn.addEventListener('click', function() {
+                // تحديث النصوص بقيم حقول الإدخال
+                infoValues[0].textContent = document.getElementById('nameInput').value;
+                infoValues[1].textContent = document.getElementById('fatherNameInput').value;
+                infoValues[2].textContent = document.getElementById('motherNameInput').value;
+                infoValues[3].textContent = document.getElementById('phnumInput').value;
+                infoValues[4].textContent = document.getElementById('yearInput').value;
+
+infoValues[5].textContent = document.getElementById('studentIdInput').value;
+                
+                // إظهار النصوص وإخفاء حقول الإدخال
+                infoValues.forEach(value => value.style.display = 'block');
+                infoInputs.forEach(input => input.style.display = 'none');
+                
+                // إظهار زر التعديل وإخفاء أزرار الحفظ والإلغاء
+                editBtn.style.display = 'block';
+                saveBtn.style.display = 'none';
+                cancelBtn.style.display = 'none';
+                
+                // هنا يمكنك إضافة كود لحفظ البيانات في قاعدة البيانات
+                alert('تم حفظ التغييرات بنجاح!');
+            });
+            
+            // حدث النقر على زر الإلغاء
+            cancelBtn.addEventListener('click', function() {
+                // إظهار النصوص وإخفاء حقول الإدخال
+                infoValues.forEach(value => value.style.display = 'block');
+                infoInputs.forEach(input => input.style.display = 'none');
+                
+                // إظهار زر التعديل وإخفاء أزرار الحفظ والإلغاء
+                editBtn.style.display = 'block';
+                saveBtn.style.display = 'none';
+                cancelBtn.style.display = 'none';
+            });
+            
+            // حدث النقر على صورة البروفايل
+            profileImage.addEventListener('click', function() {
+                imageUpload.click();
+            });
+            
+            // حدث تغيير صورة البروفايل
+            imageUpload.addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(event) {
+                        profileImage.src = event.target.result;
+                    }
+                    
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+            
+            // صورة افتراضية إذا لم يتم تحميل صورة
+            profileImage.src = profileImage.src || 'https://via.placeholder.com/150';
+        });
+        /*************************announ***********************/
+    // عرض تاريخ اليوم تلقائيًا (يمكن تعديله لاحقًا من قاعدة البيانات)
+  document.getElementById('update-date').textContent = new Date().toLocaleDateString('ar-EG');
+  
+  // هذه الدالة جاهزة لاستخدامها لاحقًا عند ربط قاعدة البيانات
+ /* function addAnnouncement(title, content, date) {
+    const container = document.querySelector('.announcements-container');
+    container.innerHTML = 
+      <div class="announcement-item">
+        <h3 class="announcement-title">${title}</h3>
+        <p class="announcement-content">${content}</p>
+        <div class="announcement-meta">${date}</div>
+      </div>
+     + container.innerHTML;
+  }*/
+  </script>
+</body>
+</html>
