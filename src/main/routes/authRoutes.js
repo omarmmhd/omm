@@ -14,19 +14,20 @@ router.post('/login', async (req, res) => {
 
     try {
         await sql.connect(dbConfig);
-        for (const profile of profiles) {
+        for (const { table, type } of profiles) {
             const result = await sql.query`
-                SELECT * FROM ${sql.ident(profile.table)} WHERE fullName = ${username}
+                SELECT * FROM ${sql.ident(table)} WHERE fullName = ${username}
             `;
-            if (result.recordset.length > 0) {
-                const user = result.recordset[0];
-                const passwordMatch = await bcrypt.compare(password, user.password);
-                if (passwordMatch) {
-                    req.session.user = { username, type: profile.type };
-                    return res.send({ message: '✅ تسجيل الدخول ناجح', usertype: profile.type });
-                } else {
-                    return res.status(401).send({ error: '❌ كلمة المرور غير صحيحة' });
-                }
+
+            const user = result.recordset[0];
+            if (!user) continue;
+
+            const passwordMatch = await bcrypt.compare(password, user.password);
+            if (passwordMatch) {
+                req.session.user = { username, type };
+                return res.send({ message: '✅ تسجيل الدخول ناجح', usertype: type });
+            } else {
+                return res.status(401).send({ error: '❌ كلمة المرور غير صحيحة' });
             }
         }
         res.status(401).send({ error: '❌ المستخدم غير موجود' });
