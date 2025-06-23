@@ -1,0 +1,176 @@
+// دالة لإظهار القسم المحدد وإخفاء الباقي
+function showContent(sectionId) {
+    // إخفاء كل الأقسام أولًا
+    const allContents = document.querySelectorAll('.content');
+    allContents.forEach(content => {
+        content.classList.remove('active');
+    });
+
+    // إظهار القسم المحدد فقط
+    const activeContent = document.getElementById(sectionId);
+    if (activeContent) {
+        activeContent.classList.add('active');
+    }
+}
+
+// تعطيل السلوك الافتراضي للروابط (منع تحميل صفحة جديدة)
+document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', function(e) {
+        if (this.getAttribute('href') === '#') {
+            e.preventDefault();
+        }
+    });
+});
+
+// عند تحميل الصفحة، تأكد من إظهار القسم الرئيسي فقط
+document.addEventListener('DOMContentLoaded', function() {
+    showContent('home');
+});
+/***********************************home**/////////////////////////////////////////
+const subjectMap = {
+    "برمجيات": {
+        "أولى": ["البرمجة اللغوية", "مبادئ البرمجة", "رياضيات حاسوبية"],
+        "ثانية": ["هياكل البيانات", "أنظمة تشغيل", "تحليل خوارزميات"]
+    },
+    "حاسوب": {
+        "أولى": ["مقدمة في الحاسوب", "شبكات", "مبادئ نظم المعلومات"],
+        "ثانية": ["قواعد بيانات", "ذكاء اصطناعي", "برمجة مرئية"]
+    }
+};
+
+const major = document.getElementById("major");
+const year = document.getElementById("year");
+const subject = document.getElementById("subject");
+
+function updateSubjects() {
+    const m = major.value;
+    const y = year.value;
+    subject.innerHTML = "";
+    if (subjectMap[m] && subjectMap[m][y]) {
+        subjectMap[m][y].forEach(sub => {
+            const option = document.createElement("option");
+            option.value = sub;
+            option.textContent = sub;
+            subject.appendChild(option);
+        });
+    }
+}
+
+major.onchange = updateSubjects;
+year.onchange = updateSubjects;
+
+async function fetchLectures() {
+    const m = major.value;
+    const y = year.value;
+    const s = subject.value;
+
+    const res = await fetch(`lectures?major=${m}&year=${y}&subject=${s}`);
+    const lectures = await res.json();
+
+    const container = document.getElementById("lectureList");
+    container.innerHTML = "<h3>الملفات:</h3>";
+    lectures.forEach(file => {
+        const link = document.createElement("a");
+        link.href = file.path;
+        link.textContent = file.name;
+        link.target = "_blank";
+        container.appendChild(link);
+    });
+}
+//**********************************************************prof*********//******************************//
+document.addEventListener('DOMContentLoaded', function() {
+    // عناصر DOM
+    const editBtn = document.getElementById('editBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const profileImage = document.getElementById('profileImage');
+    const imageUpload = document.getElementById('imageUpload');
+
+    // عناصر المعلومات
+    const infoValues = document.querySelectorAll('.info-value');
+    const infoInputs = document.querySelectorAll('.edit-input');
+
+    // حدث النقر على زر التعديل
+    editBtn.addEventListener('click', function() {
+        // إظهار حقول الإدخال وإخفاء النصوص
+        infoValues.forEach(value => value.style.display = 'none');
+        infoInputs.forEach(input => input.style.display = 'block');
+
+        // إظهار أزرار الحفظ والإلغاء وإخفاء زر التعديل
+        editBtn.style.display = 'none';
+        saveBtn.style.display = 'block';
+        cancelBtn.style.display = 'block';
+    });
+
+    // حدث النقر على زر الحفظ
+    saveBtn.addEventListener('click', function() {
+        // تحديث النصوص بقيم حقول الإدخال
+        infoValues[0].textContent = document.getElementById('nameInput').value;
+        infoValues[1].textContent = document.getElementById('fatherNameInput').value;
+        infoValues[2].textContent = document.getElementById('motherNameInput').value;
+        infoValues[3].textContent = document.getElementById('phnumInput').value;
+        infoValues[4].textContent = document.getElementById('yearInput').value;
+
+        infoValues[5].textContent = document.getElementById('studentIdInput').value;
+
+        // إظهار النصوص وإخفاء حقول الإدخال
+        infoValues.forEach(value => value.style.display = 'block');
+        infoInputs.forEach(input => input.style.display = 'none');
+
+        // إظهار زر التعديل وإخفاء أزرار الحفظ والإلغاء
+        editBtn.style.display = 'block';
+        saveBtn.style.display = 'none';
+        cancelBtn.style.display = 'none';
+
+        // هنا يمكنك إضافة كود لحفظ البيانات في قاعدة البيانات
+        alert('تم حفظ التغييرات بنجاح!');
+    });
+
+    // حدث النقر على زر الإلغاء
+    cancelBtn.addEventListener('click', function() {
+        // إظهار النصوص وإخفاء حقول الإدخال
+        infoValues.forEach(value => value.style.display = 'block');
+        infoInputs.forEach(input => input.style.display = 'none');
+
+        // إظهار زر التعديل وإخفاء أزرار الحفظ والإلغاء
+        editBtn.style.display = 'block';
+        saveBtn.style.display = 'none';
+        cancelBtn.style.display = 'none';
+    });
+
+    // حدث النقر على صورة البروفايل
+    profileImage.addEventListener('click', function() {
+        imageUpload.click();
+    });
+
+    // حدث تغيير صورة البروفايل
+    imageUpload.addEventListener('change', function(e) {
+        if (e.target.files && e.target.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                profileImage.src = event.target.result;
+            }
+
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+
+    // صورة افتراضية إذا لم يتم تحميل صورة
+    profileImage.src = profileImage.src || 'https://via.placeholder.com/150';
+});
+/*************************announ***********************/
+// عرض تاريخ اليوم تلقائيًا (يمكن تعديله لاحقًا من قاعدة البيانات)
+document.getElementById('update-date').textContent = new Date().toLocaleDateString('ar-EG');
+
+// هذه الدالة جاهزة لاستخدامها لاحقًا عند ربط قاعدة البيانات
+/* function addAnnouncement(title, content, date) {
+   const container = document.querySelector('.announcements-container');
+   container.innerHTML =
+     <div class="announcement-item">
+       <h3 class="announcement-title">${title}</h3>
+       <p class="announcement-content">${content}</p>
+       <div class="announcement-meta">${date}</div>
+     </div>
+    + container.innerHTML;
+ }*/

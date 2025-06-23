@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LearnGate.com</title>
+  <link rel="stylesheet" href="../assets/choosing.css">
+</head>
+<body>
+  <p class="nass">learn gate</p>
+  <div class="container">
+<p class="insha_hisab">إنشاء حساب</p>
+<hr>
+<button class="taleb" id="but_tal">أنا طالب</button>
+<button class="modares" id="but_mod">أنا مدرس</button>
+<button class="mowad" id="but_mowad">أنا موظف</button>
+  </div>
+
+  <script>
+   document.getElementById("but_tal").addEventListener("click" ,function()
+  {
+    window.location.href="../create_acc_student/create_acc_student.html";
+  }
+  )
+  document.getElementById("but_mod").addEventListener("click" ,function()
+  {
+window.location.href="../create_acc_engi/create_acc_engi.html";
+  })
+  document.getElementById("but_mowad").addEventListener("click" , function()
+  {
+    window.location.href="../create_acc_emp/craete_acc_emp.html";
+  }
+)
+  </script>
+</body>
+</html>

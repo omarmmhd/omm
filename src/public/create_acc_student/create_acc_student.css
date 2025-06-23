@@ -1,14 +1,14 @@
  @font-face{
-  src: url(fonts/BalooBhaijaan-Regular.ttf);
+  src: url(../assets/fonts/BalooBhaijaan-Regular.ttf);
   font-family:baloo;
  }
  @font-face {
   font-family:mon;
-  src: url(fonts/Monadi.ttf);
+  src: url(../assets/fonts/Monadi.ttf);
  }
  @font-face {
   font-family:khh;
-  src: url(fonts/Pandaify-f0eb7f5938052cb2f3342ab095c1c3fc.ttf);
+  src: url(../assets/fonts/Pandaify-f0eb7f5938052cb2f3342ab095c1c3fc.ttf);
  }
  body {
             font-family: Arial, sans-serif;

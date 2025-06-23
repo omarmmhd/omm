@@ -2,18 +2,19 @@ var x=document.getElementById("password")
 var y=document.getElementById("confirm-password")
 async function  val(){
     if(x.value==y.value){
-        const studentid =document.getElementById('student-id').value;
+        const empnumber =document.getElementById('emp-number').value;
+        const empemail=document.getElementById('emp-email').value;
         const firstname =document.getElementById('first-name').value;
         const lastname =document.getElementById('last-name').value;
-        const sec = document.getElementById('sec').value;
-        const year=document.getElementById('year').value;
+        const spec = document.getElementById('spec').value;
+        const startdate =document.getElementById('start-date').value;
         const gen =document.getElementById('gender').value;
         const password = document.getElementById('password').value;
 
-        const res = await fetch('/register', {
+        const res = await fetch('/registerEmployee', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ studentid, password,sec,year,gen,fullname:`${firstname} ${lastname}`})
+            body: JSON.stringify({ empnumber,empemail ,password,spec,startdate,gen,fullname:`${firstname} ${lastname}`})
         });
 
         const data = await res.json();
