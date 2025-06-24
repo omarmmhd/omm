@@ -6,38 +6,42 @@ const router = express.Router();
 
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
-let result2,result3,result
+
     try {
-         await sql.connect(dbConfig);
-let usertype;
-          result = await sql.query
-           `SELECT * FROM StudentProfile WHERE fullName = ${username}`
-         ;
+        await sql.connect(dbConfig);
 
-         if (result.recordset.length === 0) {
-             result2 = await sql.query
-            `SELECT * FROM TeacherProfile WHERE fullName = ${username}`
-         ;
-         if(result2.recordset.length ===0){
-             result3 = await sql.query
-         `SELECT * FROM EmployeeProfile WHERE fullName = ${username}`
-         ;
-         }
-        
+        const profiles = [
+            { table: 'StudentProfile', type: 'student' },
+            { table: 'TeacherProfile', type: 'teacher' },
+            { table: 'EmployeeProfile', type: 'engineer' }
+        ];
 
-             
-         }
-        usertype=result.recordset.length>0?'student':'engineer';
-         const user = result.recordset.length?result.recordset[0]:result2.recordset[0];
-         const passwordMatch = await bcrypt.compare(password, user.password);
+        let user = null;
+        let usertype = null;
+
+        for (const profile of profiles) {
+            const result = await sql.query `SELECT * FROM ${sql.ident(profile.table)} WHERE fullName = ${username}`;
+
+            if (result.recordset.length > 0) {
+                user = result.recordset[0];
+                usertype = profile.type;
+                break;
+            }
+        }
+
+        if (!user) {
+            return res.status(401).send({ error: '❌ المستخدم غير موجود' });
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (passwordMatch) {
-
-            req.session.user = { username };
+            req.session.user = { username, usertype };
             res.send({ message: '✅ تسجيل الدخول ناجح', usertype });
         } else {
-            res.status(401).send({ error: '❌ الرجاء التحقق من صحة بيانات التسجيل' });
+            res.status(401).send({ error: '❌ كلمة المرور غير صحيحة' });
         }
+
     } catch (err) {
         console.error(err);
         res.status(500).send({ error: '❌ خطأ في السيرفر' });

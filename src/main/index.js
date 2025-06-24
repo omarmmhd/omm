@@ -29,8 +29,8 @@ app.use('/', require('./routes/registerRoutes'));
 app.get('/views/*path', authMiddleware, (req, res) => {
     const relativePath = req.path.replace('/views/', '') || 'index.html';
 
-    if (!/^[\w\-/]+\.html$/.test(relativePath)) {
-        return res.status(400).send('Invalid page name.');
+    if (!/^[\w\-/]+\.(html|css|js|png|jpg|jpeg|gif|woff|woff2|ttf|svg)$/.test(relativePath)) {
+        return res.status(400).send('Invalid file name.');
     }
 
     const filePath = path.normalize(path.join(__dirname, '../views', relativePath));
