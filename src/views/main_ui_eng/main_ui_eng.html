@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme" content="#00796b">
-  <link rel="stylesheet" href="main_ui_eng.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='main_ui_eng.css') }}">
   <title>LearnGate.com</title>
 </head>
 <body>
@@ -19,7 +19,7 @@
   <div class="content active" id="home">
     <div class="card">
       <h2 class="h22">رفع محاضرة</h2>
-      <form id="uploadForm" enctype="multipart/form-data">
+      <form id="uploadForm" enctype="multipart/form-data" action="/upload" method="post">
         <label>التخصص:</label>
         <select id="major" name="major">
           <option value="برمجيات">برمجيات</option>
@@ -36,7 +36,7 @@
         <select id="subject" name="subject"></select>
   
         <label>ملف المحاضرة:</label>
-        <input type="file" name="file" id="fileInput">
+        <input type="file" name="media" id="fileInput">
         <p id="fileName">لم يتم اختيار ملف</p>
   
         <button type="submit">رفع</button>

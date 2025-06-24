@@ -4,7 +4,8 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const fs = require('fs');
-
+const {sql,dbConfig} =require('./config/db');
+const multer =require('multer');
 const app = express();
 
 // Middleware
@@ -43,7 +44,44 @@ app.get('/views/*path', authMiddleware, (req, res) => {
         res.sendFile(filePath);
     });
 });
-
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, 'uploads/'),
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname)); // e.g., 1629972839.mp4
+    }
+  });
+  
+  const upload = multer({ storage });
+  const uploadDir ='uploads'
+ 
+app.post('/upload', upload.single('media'), async (req, res) => {
+    const file = req.file;
+  
+    if(!fs.existsSync(uploadDir)){
+        fs.mkdirSync(uploadDir)
+      }
+    if (!file) return res.status(400).send('No file uploaded');
+  
+    const fileBuffer = fs.readFileSync(file.path);
+  
+    try {
+      const pool = await sql.connect(dbConfig);
+      await pool.request()
+        .input('FileName', sql.NVarChar, file.originalname)
+        .input('MimeType', sql.NVarChar, file.mimetype)
+        .input('FileData', sql.VarBinary(sql.MAX), fileBuffer)
+        .query(
+         `INSERT INTO MediaFiles (FileName, MimeType, FileData)
+          VALUES (@FileName, @MimeType, @FileData)`
+        );
+  
+      fs.unlinkSync(file.path); // Clean up temp file
+      res.send('File uploaded to database!');
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Upload failed');
+    }
+  });
 // Start server
 const PORT = 4200;
 app.listen(PORT, () => {
