@@ -82,6 +82,78 @@ app.post('/upload', upload.single('media'), async (req, res) => {
       res.status(500).send('Upload failed');
     }
   });
+  app.get('/files', async (req, res) => {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool.request()
+        .query('SELECT Id, FileName, UploadDate FROM MediaFiles ORDER BY UploadDate DESC');
+  
+      res.json(result.recordset); // Send array of files as JSON
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Failed to get files');
+    }
+  });
+  app.get('/download/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
+  
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool.request()
+        .input('Id', sql.Int, id)
+        .query(`SELECT FileName, MimeType, FileData FROM MediaFiles WHERE Id = @Id`);
+  
+      if (!result.recordset[0]) {
+        return res.status(404).send('File not found');
+      }
+  
+      const file = result.recordset[0];
+      res.setHeader('Content-Disposition', `attachment; filename="${file.FileName}"`);
+      res.setHeader('Content-Type', file.MimeType);
+      res.send(file.FileData);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Download failed');
+    }
+  });
+  app.use(express.json()); // Add this if you haven’t
+
+app.post('/ads', async (req, res) => {
+  const { title, content } = req.body;
+
+  if (!title || !content) {
+    return res.status(400).send('Title and content are required');
+  }
+
+  try {
+    const pool = await sql.connect(dbConfig);
+    await pool.request()
+      .input('Title', sql.NVarChar, title)
+      .input('Content', sql.NVarChar(sql.MAX), content)
+      .query(
+        `INSERT INTO Advertisements (Title, Content)
+        VALUES (@Title, @Content)`
+      );
+
+    res.send('Advertisement created');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Failed to create advertisement');
+  }
+});
+
+app.get('/ads', async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool.request()
+      .query('SELECT Id, Title, Content, UploadDate FROM Advertisements ORDER BY UploadDate DESC');
+
+    res.json(result.recordset);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Failed to load advertisements');
+  }
+});
 // Start server
 const PORT = 4200;
 app.listen(PORT, () => {

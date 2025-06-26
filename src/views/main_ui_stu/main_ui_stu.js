@@ -27,56 +27,29 @@ document.addEventListener('DOMContentLoaded', function() {
     showContent('home');
 });
 /***********************************home**/////////////////////////////////////////
-const subjectMap = {
-    "برمجيات": {
-        "أولى": ["البرمجة اللغوية", "مبادئ البرمجة", "رياضيات حاسوبية"],
-        "ثانية": ["هياكل البيانات", "أنظمة تشغيل", "تحليل خوارزميات"]
-    },
-    "حاسوب": {
-        "أولى": ["مقدمة في الحاسوب", "شبكات", "مبادئ نظم المعلومات"],
-        "ثانية": ["قواعد بيانات", "ذكاء اصطناعي", "برمجة مرئية"]
+async function fetchFiles() {
+    const res = await fetch('/files');
+    if (!res.ok) {
+      alert('Failed to load files');
+      return;
     }
-};
+    const files = await res.json();
+    const list = document.getElementById('fileList');
+    list.innerHTML = '';
 
-const major = document.getElementById("major");
-const year = document.getElementById("year");
-const subject = document.getElementById("subject");
-
-function updateSubjects() {
-    const m = major.value;
-    const y = year.value;
-    subject.innerHTML = "";
-    if (subjectMap[m] && subjectMap[m][y]) {
-        subjectMap[m][y].forEach(sub => {
-            const option = document.createElement("option");
-            option.value = sub;
-            option.textContent = sub;
-            subject.appendChild(option);
-        });
-    }
-}
-
-major.onchange = updateSubjects;
-year.onchange = updateSubjects;
-
-async function fetchLectures() {
-    const m = major.value;
-    const y = year.value;
-    const s = subject.value;
-
-    const res = await fetch(`lectures?major=${m}&year=${y}&subject=${s}`);
-    const lectures = await res.json();
-
-    const container = document.getElementById("lectureList");
-    container.innerHTML = "<h3>الملفات:</h3>";
-    lectures.forEach(file => {
-        const link = document.createElement("a");
-        link.href = file.path;
-        link.textContent = file.name;
-        link.target = "_blank";
-        container.appendChild(link);
+    files.forEach(file => {
+      const li = document.createElement('li');
+      // Link to download endpoint, using file ID
+      const link = document.createElement('a');
+      link.href = `/download/${file.Id}`;
+      link.textContent = `${file.FileName} (uploaded ${new Date(file.UploadDate).toLocaleString()})`;
+      link.download = file.FileName; // Hint for browser to download
+      li.appendChild(link);
+      list.appendChild(li);
     });
-}
+  }
+
+  fetchFiles();
 //**********************************************************prof*********//******************************//
 document.addEventListener('DOMContentLoaded', function() {
     // عناصر DOM
@@ -174,3 +147,38 @@ document.getElementById('update-date').textContent = new Date().toLocaleDateStri
      </div>
     + container.innerHTML;
  }*/
+/**** */
+async function loadAds() {
+    const res = await fetch('/ads');
+    if (!res.ok) {
+      document.getElementById('Ads_container').textContent = 'Failed to load ads';
+      return;
+    }
+
+    const ads = await res.json();
+    const container = document.getElementById('Ads_container');
+    container.innerHTML = '';
+
+    ads.forEach(ad => {
+      const div = document.createElement('div');
+      div.style.border = '1px solid #ccc';
+      div.style.padding = '10px';
+      div.style.marginBottom = '10px';
+
+      const title = document.createElement('h3');
+      title.textContent = ad.Title;
+
+      const content = document.createElement('p');
+      content.textContent = ad.Content;
+
+      const date = document.createElement('small');
+      date.textContent = `Posted:${new Date(ad.UploadDate).toLocaleString()}`;
+
+      div.appendChild(title);
+      div.appendChild(content);
+      div.appendChild(date);
+      container.appendChild(div);
+    });
+  }
+
+  loadAds();

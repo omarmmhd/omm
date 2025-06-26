@@ -216,3 +216,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // صورة افتراضية إذا لم يتم تحميل صورة
     profileImage.src = profileImage.src || 'https://via.placeholder.com/150';
 });
+/****/
+document.getElementById('adForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const payload = {
+      title: formData.get('title'),
+      content: formData.get('content')
+    };
+
+    const res = await fetch('/ads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (res.ok) {
+      alert('Ad posted!');
+      e.target.reset();
+      loadAds(); // refresh ad list
+    } else {
+      alert('Failed to post ad');
+    }
+  });

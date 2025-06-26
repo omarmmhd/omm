@@ -6,41 +6,51 @@ const router = express.Router();
 
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
+    let user = null;
+    let usertype = null;
 
     try {
         await sql.connect(dbConfig);
 
-        const profiles = [
-            { table: 'StudentProfile', type: 'student' },
-            { table: 'TeacherProfile', type: 'teacher' },
-            { table: 'EmployeeProfile', type: 'engineer' }
-        ];
+        // Try StudentProfile
+        let result = await sql.query `SELECT * FROM StudentProfile WHERE fullName = ${username}`;
+        if (result.recordset.length > 0) {
+            user = result.recordset[0];
+            usertype = 'student';
+        }
 
-        let user = null;
-        let usertype = null;
-
-        for (const profile of profiles) {
-            const result = await sql.query `SELECT * FROM ${sql.ident(profile.table)} WHERE fullName = ${username}`;
-
+        // Try TeacherProfile if not found
+        if (!user) {
+            result = await sql.query `SELECT * FROM TeacherProfile WHERE fullName = ${username}`;
             if (result.recordset.length > 0) {
                 user = result.recordset[0];
-                usertype = profile.type;
-                break;
+                usertype = 'engineer';
             }
         }
 
+        // Try EmployeeProfile if still not found
+        if (!user) {
+            result = await sql.query `SELECT * FROM EmployeeProfile WHERE fullName = ${username}`;
+            if (result.recordset.length > 0) {
+                user = result.recordset[0];
+                usertype = 'employee';
+            }
+        }
+
+        // User not found in any profile
         if (!user) {
             return res.status(401).send({ error: '❌ المستخدم غير موجود' });
         }
 
+        // Validate password
         const passwordMatch = await bcrypt.compare(password, user.password);
-
-        if (passwordMatch) {
-            req.session.user = { username, usertype };
-            res.send({ message: '✅ تسجيل الدخول ناجح', usertype });
-        } else {
-            res.status(401).send({ error: '❌ كلمة المرور غير صحيحة' });
+        if (!passwordMatch) {
+            return res.status(401).send({ error: '❌ الرجاء التحقق من صحة بيانات التسجيل' });
         }
+
+        // Set session and respond
+        req.session.user = { username };
+        res.send({ message: '✅ تسجيل الدخول ناجح', usertype });
 
     } catch (err) {
         console.error(err);

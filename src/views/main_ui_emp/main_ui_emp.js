@@ -61,47 +61,7 @@ document.getElementById('gradeForm').addEventListener('submit', function (e) {
 });
 
 /*******************anoun*****************/
-const textBtn = document.getElementById('textAdBtn');
-const imageBtn = document.getElementById('imageAdBtn');
-const textForm = document.getElementById('textForm');
-const imageForm = document.getElementById('imageForm');
-const submitBtn = document.getElementById('submitBtn');
-const textAd = document.getElementById('textAd');
-const imageInput = document.getElementById('imageInput');
 
-let currentType = null;
-
-textBtn.onclick = () => {
-    textForm.style.display = 'block';
-    imageForm.style.display = 'none';
-    submitBtn.style.display = 'block';
-    currentType = 'text';
-};
-
-imageBtn.onclick = () => {
-    imageForm.style.display = 'block';
-    textForm.style.display = 'none';
-    submitBtn.style.display = 'block';
-    currentType = 'image';
-};
-
-submitBtn.onclick = () => {
-    if (currentType === 'text') {
-        const text = textAd.value.trim();
-        if (text) {
-            alert("تم إرسال الإعلان النصي: " + text);
-        } else {
-            alert("يرجى كتابة الإعلان قبل الإرسال.");
-        }
-    } else if (currentType === 'image') {
-        const file = imageInput.files[0];
-        if (file) {
-            alert("تم اختيار الصورة: " + file.name);
-        } else {
-            alert("يرجى اختيار صورة قبل الإرسال.");
-        }
-    }
-};
 /**********************prof******************/
 document.addEventListener('DOMContentLoaded', function() {
     // عناصر DOM
@@ -184,3 +144,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // صورة افتراضية إذا لم يتم تحميل صورة
     profileImage.src = profileImage.src || 'https://via.placeholder.com/150';
 });
+/****/
+document.getElementById('adForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const payload = {
+      title: formData.get('title'),
+      content: formData.get('content')
+    };
+
+    const res = await fetch('/ads', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (res.ok) {
+      alert('Ad posted!');
+      e.target.reset();
+      loadAds(); // refresh ad list
+    } else {
+      alert('Failed to post ad');
+    }
+  });

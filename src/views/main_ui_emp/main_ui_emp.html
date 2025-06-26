@@ -16,23 +16,11 @@
         </ul>
       </nav>
 <div class="content" id="announcements">
-  <div class="ad-uploader">
-    <div class="ad-container">
-      <h2>رفع إعلان</h2>
-      <button id="textAdBtn">إضافة إعلان نصي</button>
-      <button id="imageAdBtn">إضافة إعلان (ملف_صورة)  </button>
-
-      <div class="form-section" id="textForm">
-        <textarea id="textAd" placeholder="اكتب إعلانك هنا..."></textarea>
-      </div>
-
-      <div class="form-section" id="imageForm">
-        <input type="file" accept="image/*" id="imageInput">
-      </div>
-
-      <button id="submitBtn" class="sub_button">إرسال الإعلان</button>
-    </div>
-  </div>
+  <form id="adForm">
+    <input type="text" name="title" placeholder="Ad Title" required><br>
+    <textarea name="content" placeholder="Ad Content" required></textarea><br>
+    <button type="submit">Post Ad</button>
+  </form>
 </div>
 
 <!----> <!----> <!---->

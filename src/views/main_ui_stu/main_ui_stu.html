@@ -17,27 +17,9 @@
     </ul>
   </nav>
   <div class="content active" id="home">
-    <div class="card">
-      <h2>تحميل المحاضرات</h2>
-  
-      <label>التخصص:</label>
-      <select id="major">
-        <option value="برمجيات">برمجيات</option>
-        <option value="حاسوب">حاسوب</option>
-      </select>
-  
-      <label>السنة:</label>
-      <select id="year">
-        <option value="أولى">أولى</option>
-        <option value="ثانية">ثانية</option>
-      </select>
-  
-      <label>المادة:</label>
-      <select id="subject"></select>
-  
-      <button onclick="fetchLectures()">عرض المحاضرات</button>
-  
-      <div id="lectureList"></div>
+    <div>
+      <h1>Available Lectures</h1>
+      <ul id="fileList"></ul>
     </div>
   </div>
   <div class="content" id="about">
@@ -82,12 +64,12 @@
     </table>
 </div>
 <div class="content" id="announcements">
-  <div class="announcements-header">
+  <div  class="announcements-header">
     <h2 class="section-title"> الإعلانات</h2>
     <div class="announcement-date">آخر تحديث: <span id="update-date"></span></div>
   </div>
   
-  <div class="announcements-container">
+  <div  id="Ads_container" class="announcements-container">
     <!-- هذه الحافظة ستُملأ ديناميكيًا من قاعدة البيانات لاحقًا -->
     <div class="empty-state">
       <svg class="announcement-icon" viewBox="0 0 24 24">
