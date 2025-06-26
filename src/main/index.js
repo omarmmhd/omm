@@ -159,3 +159,45 @@ const PORT = 4200;
 app.listen(PORT, () => {
     console.log(`✅ السيرفر شغال على http://localhost:${PORT}`);
 });
+
+app.post('/marks', async (req, res) => {
+  const { studentId, subject, exam, mark, maxMark } = req.body;
+
+  try {
+    const pool = await sql.connect(dbConfig);
+    const student = await pool.request().query(`SELECT id FROM StudentProfile WHERE Studentid =${studentId}`)
+    await pool.request()
+    .input('StudentIdentifier',sql.UniqueIdentifier,student.recordset[0].id)
+      .input('StudentID', sql.NVarChar, studentId)
+      .input('Subject', sql.NVarChar, subject)
+      .input('Exam', sql.NVarChar, exam)
+      .input('Mark', sql.Int, mark)
+      .input('MaxMark', sql.Int, maxMark)
+      .query(
+        `INSERT INTO StudentMarks (StudentIdentifier,StudentId, Subject, Exam, Mark, MaxMark)
+        VALUES (@StudentIdentifier,@StudentId, @Subject, @Exam, @Mark, @MaxMark)`
+      );
+    res.send('Mark uploaded successfully');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error uploading mark');
+  }
+});
+
+app.get('/marks/:studentId', async (req, res) => {
+  const studentId = req.params.studentId;
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool.request()
+      .input('StudentIdentifier', sql.UniqueIdentifier, studentId)
+      .query(
+        `SELECT Subject, Exam, Mark, MaxMark, UploadDate
+        FROM StudentMarks
+        WHERE StudentIdentifier = @StudentIdentifier
+        ORDER BY UploadDate DESC`
+      );
+    res.json(result.recordset);
+  } catch (err) {
+    res.status(500).send('Error fetching marks');
+  }
+});

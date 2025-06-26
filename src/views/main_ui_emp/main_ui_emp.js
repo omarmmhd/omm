@@ -167,3 +167,32 @@ document.getElementById('adForm').addEventListener('submit', async e => {
       alert('Failed to post ad');
     }
   });
+  /************************** */
+  document.getElementById('markForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const form = e.target;
+
+    const payload = {
+      studentId: form.studentId.value,
+      subject: form.subject.value.trim(),
+      exam: form.exam.value.trim(),
+      mark: parseInt(form.mark.value),
+      maxMark: parseInt(form.maxMark.value)
+    };
+
+    const res = await fetch('/marks', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const msg = document.getElementById('statusMessage');
+    if (res.ok) {
+      msg.textContent = 'Mark uploaded!';
+      msg.style.color = 'green';
+      form.reset();
+    } else {
+      msg.textContent = 'Error uploading mark.';
+      msg.style.color = 'red';
+    }
+  });

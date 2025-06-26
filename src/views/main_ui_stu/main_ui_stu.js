@@ -182,3 +182,23 @@ async function loadAds() {
   }
 
   loadAds();
+  /******************************** */
+  const studentId = sessionStorage.getItem('studentId');
+
+    fetch(`/marks/${studentId}`)
+      .then(res => res.json())
+      .then(marks => {
+        const table = document.getElementById('marksTable');
+        table.innerHTML = '';
+
+        marks.forEach(mark => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${mark.Subject}</td>
+            <td>${mark.Exam}</td>
+            <td>${mark.Mark} / ${mark.MaxMark}</td>
+            <td>${new Date(mark.UploadDate).toLocaleDateString()}</td>
+          `;
+          table.appendChild(row);
+        });
+      });

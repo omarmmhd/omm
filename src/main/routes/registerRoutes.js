@@ -2,17 +2,18 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const { sql, dbConfig } = require('../config/db');
-
+const {v4:uuidv4} = require('uuid');
 const router = express.Router();
 
 router.post('/register', async (req, res) => {
     const { studentid, password, sec, year, gen, fullname } = req.body;
+    const id = uuidv4();
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
         await sql.connect(dbConfig);
         await sql.query`
-            INSERT INTO StudentProfile (fullName, StudentID, password, section, year, gender)
-            VALUES (${fullname}, ${studentid}, ${hashedPassword}, ${sec}, ${year}, ${gen})
+            INSERT INTO StudentProfile (id,fullName, StudentID, password, section, year, gender)
+            VALUES (${id} , ${fullname}, ${studentid}, ${hashedPassword}, ${sec}, ${year}, ${gen})
         `;
         res.send({ message: '✅ تم التسجيل بنجاح' });
     } catch (err) {

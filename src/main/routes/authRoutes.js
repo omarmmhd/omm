@@ -17,6 +17,7 @@ router.post('/login', async (req, res) => {
         if (result.recordset.length > 0) {
             user = result.recordset[0];
             usertype = 'student';
+           
         }
 
         // Try TeacherProfile if not found
@@ -50,7 +51,9 @@ router.post('/login', async (req, res) => {
 
         // Set session and respond
         req.session.user = { username };
-        res.send({ message: '✅ تسجيل الدخول ناجح', usertype });
+        res.send({ message: '✅ تسجيل الدخول ناجح', usertype,studentId:usertype==='student'?user.id:null});
+
+        
 
     } catch (err) {
         console.error(err);

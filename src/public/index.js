@@ -24,6 +24,7 @@ async function login(event) {
 
     if(res.status === 200){
         if(data.usertype==='student'){
+            sessionStorage.setItem('studentId',data.studentId)
             console.log('student')
             window.location.href = '../views/main_ui_stu/main_ui_stu.html';
         }
