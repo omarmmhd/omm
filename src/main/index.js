@@ -63,11 +63,11 @@ app.post('/upload', upload.single('media'), async (req, res) => {
     if (!file) return res.status(400).send('No file uploaded');
   
     const fileBuffer = fs.readFileSync(file.path);
-  
+  const filename =Buffer.from(file.originalname,'latin1').toString('utf8')
     try {
       const pool = await sql.connect(dbConfig);
       await pool.request()
-        .input('FileName', sql.NVarChar, file.originalname)
+        .input('FileName', sql.NVarChar, filename)
         .input('MimeType', sql.NVarChar, file.mimetype)
         .input('FileData', sql.VarBinary(sql.MAX), fileBuffer)
         .query(
@@ -199,5 +199,35 @@ app.get('/marks/:studentId', async (req, res) => {
     res.json(result.recordset);
   } catch (err) {
     res.status(500).send('Error fetching marks');
+  }
+});
+
+app.get('/student/profile', async (req, res) => {
+  const StudentIdentifier = req.StudentIdentifier;
+
+ 
+
+  try {
+    await sql.connect(dbConfig);
+
+    const result = await sql.query
+     `SELECT * FROM StudentProfile WHERE id = ${StudentIdentifier}`
+    ;
+
+    if (result.recordset.length === 0) {
+      return res.status(404).send('❌ Student not found.');
+    }
+
+    const student = result.recordset[0];
+
+    // Render student profile page
+    res.render('student-profile', { student });
+    res.json({student});
+    // Or: Send JSON data
+    // res.json(student);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('❌ Server error');
   }
 });

@@ -108,80 +108,58 @@ nav li:first-child{
   }
 }
 /***************************home***************************************/
-.card {
-  background-color: white;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  width: 90%;
-  max-width: 500px;
-}
 
-h2 {
-  text-align: center;
-  color: #2c3e50;
-}
-
-label {
-  display: block;
-  margin-top: 15px;
-  font-weight: bold;
-  color: #34495e;
-}
-
-select, button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-}
-
-button {
-  background-color: #2ecc71;
-  color: white;
-  border: none;
-  margin-top: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #27ae60;
-}
-
-#lectureList {
-  margin-top: 20px;
-}
-
-#lectureList a {
-  display: block;
-  margin: 8px 0;
-  color: #2980b9;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-#lectureList a:hover {
-  text-decoration: underline;
-}
-/************************************************الدرجات الامتحانية***********************************/
-.the_text_marks{
-  color: #052659;
-  position: absolute;
-  right:10px;
-  font-family:mon;
-  font-size:30px;
-}
-.the_table{
-  width:30%; 
-  font-family:mon;
+/************************************************الدرجات الامتحانية**********************************/
+.text2{
+  margin-bottom:12px;
   color:#052659;
-  border-color:#052659;
-  border-radius:15px;
-  border-width:8px;
+  font-family:baloo;
+  text-align:right;
 }
+table {
+   width: 100%;
+   border-collapse: separate; /* لفصل الحدود */
+   border-spacing: 0;
+   border-radius: 10px; /* حواف مستديرة للجدول */
+   overflow: hidden; /* لتجنب تجاوز الحواف */
+   font-family:baloo;
+   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+   background-color: #fefefe;
+  }
+  
+  thead {
+   background-color: #052659;
+   color: white;
+  }
+  
+  thead th {
+   padding: 12px 15px;
+   text-align: left;
+  }
+  
+  tbody tr {
+   border-bottom: 1px solid rgba(74, 144, 226, 0.2);
+  transition: background-color 0.3s ease;
+  }
+  
+  tbody tr:hover {
+   background-color: #e6f0ff;
+  }
+  
+  tbody td {
+   padding: 10px 15px;
+   color:#052659;
+  }
+  
+  /* لجعل حدود الخلايا غير واضحة (شفافة) */
+  table, thead th, tbody td {
+  border: none;
+  }
+  
+  /* إضافة تدرج خفيف للصفوف الزوجية */
+  tbody tr:nth-child(even) {
+   background-color: #f9fbff;
+  }
 /****************************************************** prof   *********************************************/
 
 

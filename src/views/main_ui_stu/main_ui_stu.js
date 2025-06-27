@@ -1,3 +1,4 @@
+
 // دالة لإظهار القسم المحدد وإخفاء الباقي
 function showContent(sectionId) {
     // إخفاء كل الأقسام أولًا
@@ -202,3 +203,35 @@ async function loadAds() {
           table.appendChild(row);
         });
       });
+
+      document.getElementById('logout').addEventListener('click',()=>{
+        fetch('/logout',{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            }
+        }).then(response =>response.json()).then(data=>{
+            if(data.success){window.location.href='../public/index.html'}
+        })
+      })
+
+
+      async function loadProfile() {
+        try {
+          const response = await fetch('/student/profile', { credentials: 'include' });
+          if (!response.ok) throw new Error('Failed to fetch profile');
+          const data = await response.json();
+          const student = data.student;
+  
+          document.getElementById('fullName').textContent = student.fullName;
+          document.getElementById('email').textContent = student.email;
+          document.getElementById('major').textContent = student.major;
+          document.getElementById('year').textContent = student.year;
+  
+        } catch (err) {
+          console.error(err);
+          alert('Error loading profile. Please try again.');
+        }
+      }
+  
+      loadProfile();

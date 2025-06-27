@@ -17,9 +17,9 @@
       </nav>
 <div class="content" id="announcements">
   <form id="adForm">
-    <input type="text" name="title" placeholder="Ad Title" required><br>
-    <textarea name="content" placeholder="Ad Content" required></textarea><br>
-    <button type="submit">Post Ad</button>
+    <input type="text" name="title" placeholder="أضف عنوان للإعلان" required><br>
+    <textarea name="content" placeholder="محتوى الإعلان" required></textarea><br>
+    <button type="submit">نشر الإعلان</button>
   </form>
 </div>
 
@@ -27,50 +27,14 @@
 
 
 <div class="content" id="home">
-  <div class="container1">
-    <h2>رفع علامات الطلاب</h2>
-
-    <form id="gradeForm">
-      <label for="subject">المادة:</label>
-      <select id="subject" required>
-        <option value="">اختر المادة</option>
-        <option value="">برمجة</option>
-        <option value="">دارات إلكترونية</option>
-        <option value="">مدخل إلى الحاسوب</option>
-      </select>
-
-      <label for="year">السنة الدراسية:</label>
-      <select id="year" required>
-        <option value="">اختر السنة</option>
-        <option value="1">السنة الأولى</option>
-        <option value="2">السنة الثانية</option>
-      </select>
-
-      <label for="major">الاختصاص:</label>
-      <select id="major" required>
-        <option value="">اختر الاختصاص</option>
-        <option value="برمجيات">برمجيات</option>
-        <option value="حواسيب">حواسيب</option>
-      </select>
-
-     
-
-      <label for="grade">العلامة:</label>
-      <input type="number" id="grade" min="0" max="100" required class="in2">
-
-      <button type="submit" class="btn1">إرسال العلامة</button>
-    </form>
-
-    <p id="resultMessage"></p>
-  </div>
   <form id="markForm">
     <label for="studentId">رقم الطالب:</label>
-    <input type="text" id="studentId" required class="in1">
-    <input type="text" name="subject" placeholder="Subject" required />
+    <input type="text" id="studentId" placeholder="الرقم الجامعي" required class="in1">
+    <input type="text" name="subject" placeholder="اسم المادة" required />
     <input type="text" name="exam" placeholder="Exam (e.g. Midterm)" required />
-    <input type="number" name="mark" placeholder="Mark" required />
-    <input type="number" name="maxMark" placeholder="Max Mark" required />
-    <button type="submit">Upload Mark</button>
+    <input type="number" name="mark" placeholder="درجة الطالب" required />
+    <input type="number" name="maxMark" placeholder="الدرجة العظمى" required />
+    <button type="submit">إرسال العلامة</button>
   </form>
   <p id="statusMessage"></p>
 </div>

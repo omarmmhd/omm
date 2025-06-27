@@ -93,47 +93,7 @@ document.getElementById("uploadForm").onsubmit = async function(e) {
     }
 };
 /*********************************anoun******************************/
-const textBtn = document.getElementById('textAdBtn');
-const imageBtn = document.getElementById('imageAdBtn');
-const textForm = document.getElementById('textForm');
-const imageForm = document.getElementById('imageForm');
-const submitBtn = document.getElementById('submitBtn');
-const textAd = document.getElementById('textAd');
-const imageInput = document.getElementById('imageInput');
 
-let currentType = null;
-
-textBtn.onclick = () => {
-    textForm.style.display = 'block';
-    imageForm.style.display = 'none';
-    submitBtn.style.display = 'block';
-    currentType = 'text';
-};
-
-imageBtn.onclick = () => {
-    imageForm.style.display = 'block';
-    textForm.style.display = 'none';
-    submitBtn.style.display = 'block';
-    currentType = 'image';
-};
-
-submitBtn.onclick = () => {
-    if (currentType === 'text') {
-        const text = textAd.value.trim();
-        if (text) {
-            alert("تم إرسال الإعلان النصي: " + text);
-        } else {
-            alert("يرجى كتابة الإعلان قبل الإرسال.");
-        }
-    } else if (currentType === 'image') {
-        const file = imageInput.files[0];
-        if (file) {
-            alert("تم اختيار الصورة: " + file.name);
-        } else {
-            alert("يرجى اختيار صورة قبل الإرسال.");
-        }
-    }
-};
 ///////////////***************prof*******************/////
 document.addEventListener('DOMContentLoaded', function() {
     // عناصر DOM
