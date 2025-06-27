@@ -79,6 +79,23 @@ nav li:first-child{
     display:none;
   }
 }
+.logoutbtn{
+  width:150px;
+  height:45px;
+  background-color:#052659;
+  color:white;
+  border:1px solid #052659;
+  border-radius:25px;
+  font-family:baloo;
+  font-size:15px;
+  position: relative;
+  top:680px;
+}
+.logoutbtn:hover{
+  background-color:rgb(233, 43, 43);
+  color:white;
+  border:rgb(233, 43, 43);
+}
 /***********************home******************/
 html, body {
    height: 100%;
@@ -265,63 +282,6 @@ html, body {
         width: 100%;
         font-family:baloo;
         color:#052659;
-      }
-      
-      .edit-input {
-        padding: 8px 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        width: 100%;
-        font-size: 16px;
-        font-family:baloo;
-        color:#052659;
-      }
-      
-      .buttons {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        margin-top: 30px;
-      }
-      
-      .btn {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: all 0.3s;
-      }
-      
-      .btn-edit {
-        background-color:rgb(33, 164 , 224);
-        color: white;
-        font-family:baloo;
-      }
-      
-      .btn-save {
-        background-color: #2ecc71;
-        color: white;
-        display: none;
-        font-family:baloo;
-      }
-      
-      .btn-cancel {
-        background-color: #e74c3c;
-        color: white;
-        display: none;
-        font-family:baloo;
-      }
-      
-      .btn:hover {
-        opacity: 0.9;
-        transform: translateY(-2px);
-        background-color:white;
-        color:rgb(33, 164 , 224);
-      }
-      
-      .file-input {
-        display: none;
       }
       
       @media (max-width: 600px) {

@@ -29,41 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /*************************home********************/
-const subjectMap = {
-    "برمجيات": {
-        "أولى": ["لغة أجنبية1","مدخل إلى الحاسوب","أسس كهربائية", "1رياضيات حاسوبية" ,"برمجة1", "نظم تشغيل1","لغة عربية","برمجة2","لغة أجنبية2","رياضيات حاسوبية2","نظم تشغيل2","تصميم مواقع ويب","شبكات حاسوبية","ثقافة"],
-        "ثانية": ["قواعد معطيات1", "برمجة متقدمة1", "خوارزميات","تقانات إنترنت","اتصالات رقمية","لغة أجنبية3","تحليل ونظم المعلومات","قواعد معطيات2","هندسة برمجيات","نظم وسائط متعددة","أمن معلومات","برمجة متقدمة2","لغة أجنبية4"]
-    },
-    "حاسوب": {
-        "أولى": ["لغة أجنبية1","مدخل إلى الحاسوب","أسس كهربائية", "1رياضيات حاسوبية" ,"دارات منطقية", "نظم تشغيل1","لغة عربية","لغة أجنبية2","ثقافة","برمجة1","دارات متكاملة","وحدات محيطية","صيانة حواسيب","بنية حاسوب1"],
-        "ثانية": ["تجكم آلي","بنية حاسوب2","برمجة2","اتصالات رقمية","صيانة حواسيب متقدمة","لغة أجنبية3","تصميم دارات إلكترونية","برمجة3","تقانات إنترنت","لغة أجنبية4","شبكات حاسوبية","تطبيقات تحكم آلي","نظم تشغيل2"]
-    }
-};
-
-const major = document.getElementById("major");
-const year = document.getElementById("year");
-const subject = document.getElementById("subject");
-const fileInput = document.getElementById("fileInput");
-const fileNameDisplay = document.getElementById("fileName");
-
-// تحديث قائمة المواد حسب التخصص والسنة
-function updateSubjects() {
-    const m = major.value;
-    const y = year.value;
-    subject.innerHTML = "";
-    if (subjectMap[m] && subjectMap[m][y]) {
-        subjectMap[m][y].forEach(sub => {
-            const option = document.createElement("option");
-            option.value = sub;
-            option.textContent = sub;
-            subject.appendChild(option);
-        });
-    }
-}
-
-major.onchange = updateSubjects;
-year.onchange = updateSubjects;
-
 // عرض اسم الملف عند اختياره
 fileInput.addEventListener('change', function () {
     const fileName = this.files[0]?.name || "لم يتم اختيار ملف";
@@ -82,6 +47,7 @@ document.getElementById("uploadForm").onsubmit = async function(e) {
         method: 'POST',
         body: formData
     });
+    const result = await res.json()
 
     if (res.ok) {
         alert("✅ تم رفع المحاضرة بنجاح!");
@@ -176,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // صورة افتراضية إذا لم يتم تحميل صورة
     profileImage.src = profileImage.src || 'https://via.placeholder.com/150';
 });
-/****/
+/**anoun-new**/
 document.getElementById('adForm').addEventListener('submit', async e => {
     e.preventDefault();
     const formData = new FormData(e.target);

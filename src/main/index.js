@@ -76,7 +76,7 @@ app.post('/upload', upload.single('media'), async (req, res) => {
         );
   
       fs.unlinkSync(file.path); // Clean up temp file
-      res.send('File uploaded to database!');
+      res.send({msg:'File uploaded to database!' ,success:true});
     } catch (err) {
       console.error(err);
       res.status(500).send('Upload failed');
@@ -211,7 +211,7 @@ app.get('/student/profile/:studentId', async (req, res) => {
     await sql.connect(dbConfig);
 
     const result = await sql.query
-     `SELECT * FROM StudentProfile WHERE fullName ='omar mm'`
+     `SELECT * FROM StudentProfile WHERE id = ${StudentIdentifier}`
     ;
 
     if (result.recordset.length === 0) {
@@ -222,6 +222,62 @@ app.get('/student/profile/:studentId', async (req, res) => {
 
     // Render student profile page
     res.json({student});
+    // Or: Send JSON data
+    // res.json(student);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('❌ Server error');
+  }
+});
+
+app.get('/engineer/profile/:engineerId', async (req, res) => {
+  const engineerIdentifier =req.params.engineerId;
+
+ 
+
+  try {
+    await sql.connect(dbConfig);
+
+    const result = await sql.query
+     `SELECT * FROM TeacherProfile WHERE id = ${engineerIdentifier}`
+    ;
+
+    if (result.recordset.length === 0) {
+      return res.status(404).send('❌ engineer not found.');
+    }
+
+    const engineer = result.recordset[0];
+
+    // Render student profile page
+    res.json({engineer});
+    // Or: Send JSON data
+    // res.json(student);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('❌ Server error');
+  }
+});app.get('/employee/profile/:employeeId', async (req, res) => {
+  const employeeIdentifier =req.params.employeeId;
+
+ 
+
+  try {
+    await sql.connect(dbConfig);
+
+    const result = await sql.query
+     `SELECT * FROM EmployeeProfile WHERE id = ${employeeIdentifier}`
+    ;
+
+    if (result.recordset.length === 0) {
+      return res.status(404).send('❌ employee not found.');
+    }
+
+    const employee = result.recordset[0];
+
+    // Render student profile page
+    res.json({employee});
     // Or: Send JSON data
     // res.json(student);
 

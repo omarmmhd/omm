@@ -24,12 +24,13 @@ router.post('/register', async (req, res) => {
 
 router.post('/registerEngineer', async (req, res) => {
     const { engnumber, engemail, password, spec, startdate, gen, fullname } = req.body;
+    const id = uuidv4();
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
         await sql.connect(dbConfig);
         await sql.query`
-            INSERT INTO TeacherProfile (fullName, engNumber, password, specialty, startDate, gender, engEmail)
-            VALUES (${fullname}, ${engnumber}, ${hashedPassword}, ${spec}, ${startdate}, ${gen}, ${engemail})
+            INSERT INTO TeacherProfile (id, fullName, engNumber, password, specialty, startDate, gender, engEmail)
+            VALUES (${id}, ${fullname}, ${engnumber}, ${hashedPassword}, ${spec}, ${startdate}, ${gen}, ${engemail})
         `;
         res.send({ message: '✅ تم التسجيل بنجاح' });
     } catch (err) {
@@ -40,12 +41,13 @@ router.post('/registerEngineer', async (req, res) => {
 
 router.post('/registerEmployee', async (req, res) => {
     const { empnumber, empemail, password, spec, startdate, gen, fullname } = req.body;
+    const id = uuidv4();
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
         await sql.connect(dbConfig);
         await sql.query`
-            INSERT INTO EmployeeProfile (fullName, empNumber, password, specialty, startDate, gender, empEmail)
-            VALUES (${fullname}, ${empnumber}, ${hashedPassword}, ${spec}, ${startdate}, ${gen}, ${empemail})
+            INSERT INTO EmployeeProfile (id,fullName, empNumber, password, specialty, startDate, gender, empEmail)
+            VALUES (${id},${fullname}, ${empnumber}, ${hashedPassword}, ${spec}, ${startdate}, ${gen}, ${empemail})
         `;
         res.send({ message: '✅ تم التسجيل بنجاح' });
     } catch (err) {

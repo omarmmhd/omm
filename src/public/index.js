@@ -24,16 +24,20 @@ async function login(event) {
 
     if(res.status === 200){
         if(data.usertype==='student'){
-            sessionStorage.setItem('studentId',data.studentId)
+            sessionStorage.setItem('studentId',data.userId)
             
             console.log('student')
             window.location.href = '../views/main_ui_stu/main_ui_stu.html';
         }
         if(data.usertype==='engineer'){
+            sessionStorage.setItem('engineerId',data.userId)
+
             console.log('eng')
 
             window.location.href = '../views/main_ui_eng/main_ui_eng.html';
         } if(data.usertype==='employee'){
+            sessionStorage.setItem('employeeId',data.userId)
+
             console.log('emp')
             window.location.href = '../views/main_ui_emp/main_ui_emp.html';
         }

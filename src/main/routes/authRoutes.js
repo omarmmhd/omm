@@ -51,7 +51,7 @@ router.post('/login', async (req, res) => {
 
         // Set session and respond
         req.session.user = { username };
-        res.send({ message: '✅ تسجيل الدخول ناجح', usertype,studentId:usertype==='student'?user.id:null});
+        res.send({ message: '✅ تسجيل الدخول ناجح', usertype,userId:user.id});
 
         
 

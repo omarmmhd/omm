@@ -52,102 +52,10 @@ async function fetchFiles() {
 
   fetchFiles();
 //**********************************************************prof*********//******************************//
-document.addEventListener('DOMContentLoaded', function() {
-    // عناصر DOM
-    const editBtn = document.getElementById('editBtn');
-    const saveBtn = document.getElementById('saveBtn');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const profileImage = document.getElementById('profileImage');
-    const imageUpload = document.getElementById('imageUpload');
 
-    // عناصر المعلومات
-    const infoValues = document.querySelectorAll('.info-value');
-    const infoInputs = document.querySelectorAll('.edit-input');
-
-    // حدث النقر على زر التعديل
-    editBtn.addEventListener('click', function() {
-        // إظهار حقول الإدخال وإخفاء النصوص
-        infoValues.forEach(value => value.style.display = 'none');
-        infoInputs.forEach(input => input.style.display = 'block');
-
-        // إظهار أزرار الحفظ والإلغاء وإخفاء زر التعديل
-        editBtn.style.display = 'none';
-        saveBtn.style.display = 'block';
-        cancelBtn.style.display = 'block';
-    });
-
-    // حدث النقر على زر الحفظ
-    saveBtn.addEventListener('click', function() {
-        // تحديث النصوص بقيم حقول الإدخال
-        infoValues[0].textContent = document.getElementById('nameInput').value;
-        infoValues[1].textContent = document.getElementById('fatherNameInput').value;
-        infoValues[2].textContent = document.getElementById('motherNameInput').value;
-        infoValues[3].textContent = document.getElementById('phnumInput').value;
-        infoValues[4].textContent = document.getElementById('yearInput').value;
-
-        infoValues[5].textContent = document.getElementById('studentIdInput').value;
-
-        // إظهار النصوص وإخفاء حقول الإدخال
-        infoValues.forEach(value => value.style.display = 'block');
-        infoInputs.forEach(input => input.style.display = 'none');
-
-        // إظهار زر التعديل وإخفاء أزرار الحفظ والإلغاء
-        editBtn.style.display = 'block';
-        saveBtn.style.display = 'none';
-        cancelBtn.style.display = 'none';
-
-        // هنا يمكنك إضافة كود لحفظ البيانات في قاعدة البيانات
-        alert('تم حفظ التغييرات بنجاح!');
-    });
-
-    // حدث النقر على زر الإلغاء
-    cancelBtn.addEventListener('click', function() {
-        // إظهار النصوص وإخفاء حقول الإدخال
-        infoValues.forEach(value => value.style.display = 'block');
-        infoInputs.forEach(input => input.style.display = 'none');
-
-        // إظهار زر التعديل وإخفاء أزرار الحفظ والإلغاء
-        editBtn.style.display = 'block';
-        saveBtn.style.display = 'none';
-        cancelBtn.style.display = 'none';
-    });
-
-    // حدث النقر على صورة البروفايل
-    profileImage.addEventListener('click', function() {
-        imageUpload.click();
-    });
-
-    // حدث تغيير صورة البروفايل
-    imageUpload.addEventListener('change', function(e) {
-        if (e.target.files && e.target.files[0]) {
-            const reader = new FileReader();
-
-            reader.onload = function(event) {
-                profileImage.src = event.target.result;
-            }
-
-            reader.readAsDataURL(e.target.files[0]);
-        }
-    });
-
-    // صورة افتراضية إذا لم يتم تحميل صورة
-    profileImage.src = profileImage.src || 'https://via.placeholder.com/150';
-});
 /*************************announ***********************/
 // عرض تاريخ اليوم تلقائيًا (يمكن تعديله لاحقًا من قاعدة البيانات)
 document.getElementById('update-date').textContent = new Date().toLocaleDateString('ar-EG');
-
-// هذه الدالة جاهزة لاستخدامها لاحقًا عند ربط قاعدة البيانات
-/* function addAnnouncement(title, content, date) {
-   const container = document.querySelector('.announcements-container');
-   container.innerHTML =
-     <div class="announcement-item">
-       <h3 class="announcement-title">${title}</h3>
-       <p class="announcement-content">${content}</p>
-       <div class="announcement-meta">${date}</div>
-     </div>
-    + container.innerHTML;
- }*/
 /**** */
 async function loadAds() {
     const res = await fetch('/ads');
@@ -203,7 +111,7 @@ async function loadAds() {
           table.appendChild(row);
         });
       });
-
+/*********************logout-s***/
       document.getElementById('logout').addEventListener('click',()=>{
         fetch('/logout',{
             method:'POST',
@@ -215,17 +123,18 @@ async function loadAds() {
         })
       })
 
-
+/*****************load-save profile******/
       async function loadProfile() {
         const studentId =sessionStorage.getItem('studentId');
         try {
-          const response = await fetch(`/student/profile/${'studentId'}`);
+          const response = await fetch(`/student/profile/${studentId}`);
           if (!response.ok) throw new Error('Failed to fetch profile');
           const data = await response.json();
           const student = data.student;
   
           document.getElementById('name').textContent =student.fullName;
           document.getElementById('year').textContent = student.year;
+          document.getElementById('studentId').textContent=student.StudentID
   
         } catch (err) {
           console.error(err);

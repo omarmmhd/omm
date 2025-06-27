@@ -39,6 +39,8 @@
   <p id="statusMessage"></p>
 </div>
 <div class="content" id="profile">
+  <button id="logout" class="logoutbtn">تسجيل الخروج</button>
+
   <div class="container">
     <div class="header">
         <h1>الملـف الشخـصي</h1>
@@ -46,50 +48,26 @@
     
     <div class="profile-content">
         <img src="" alt="" class="profile-picture" id="profileImage">
-        <input type="file" id="imageUpload" class="file-input" accept="image/*">
         
         <div class="profile-info">
             <div class="info-group">
                 <label class="info-label">الاسم الكامل</label>
                 <div class="info-value" id="name"></div>
-                <input type="text" class="edit-input" id="nameInput" value="" style="display: none;">
-</div>
-            
-            <div class="info-group">
-                <label class="info-label">اسم الأب</label>
-                <div class="info-value" id="fatherName"></div>
-                <input type="text" class="edit-input" id="fatherNameInput" value="" style="display: none;">
-            </div>
-            
-            <div class="info-group">
-                <label class="info-label">اسم الأم</label>
-                <div class="info-value" id="motherName"></div>
-                <input type="text" class="edit-input" id="motherNameInput" value="" style="display: none;">
-            </div>
-            
+</div> 
             <div class="info-group">
                 <label class="info-label">رقم الهاتف</label>
                 <div class="info-value" id="phone_number"></div>
-                <input type="text" class="edit-input" id="phnumInput" value="" style="display: none;">
             </div>
             
             <div class="info-group">
                 <label class="info-label"> الإيميل </label>
                 <div class="info-value" id="email"></div>
-                <input type="text" class="edit-input" id="emailInput" value="" style="display: none;">
             </div>
             
             <div class="info-group">
                 <label class="info-label"> الاختصاص الجامعي</label>
                 <div class="info-value" id="sec"></div>
-                <input type="text" class="edit-input" id="sec" value="" style="display: none;">
             </div>
-        </div>
-        
-        <div class="buttons">
-            <button class="btn btn-edit" id="editBtn">تعديل المعلومات</button>
-            <button class="btn btn-save" id="saveBtn">حفظ التغييرات</button>
-            <button class="btn btn-cancel" id="cancelBtn">إلغاء</button>
         </div>
     </div>
 </div>
