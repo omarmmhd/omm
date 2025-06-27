@@ -202,8 +202,8 @@ app.get('/marks/:studentId', async (req, res) => {
   }
 });
 
-app.get('/student/profile', async (req, res) => {
-  const StudentIdentifier = req.StudentIdentifier;
+app.get('/student/profile/:studentId', async (req, res) => {
+  const StudentIdentifier =req.params.studentId;
 
  
 
@@ -211,7 +211,7 @@ app.get('/student/profile', async (req, res) => {
     await sql.connect(dbConfig);
 
     const result = await sql.query
-     `SELECT * FROM StudentProfile WHERE id = ${StudentIdentifier}`
+     `SELECT * FROM StudentProfile WHERE fullName ='omar mm'`
     ;
 
     if (result.recordset.length === 0) {
@@ -221,7 +221,6 @@ app.get('/student/profile', async (req, res) => {
     const student = result.recordset[0];
 
     // Render student profile page
-    res.render('student-profile', { student });
     res.json({student});
     // Or: Send JSON data
     // res.json(student);

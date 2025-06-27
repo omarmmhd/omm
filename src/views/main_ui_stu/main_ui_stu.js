@@ -217,15 +217,14 @@ async function loadAds() {
 
 
       async function loadProfile() {
+        const studentId =sessionStorage.getItem('studentId');
         try {
-          const response = await fetch('/student/profile', { credentials: 'include' });
+          const response = await fetch(`/student/profile/${'studentId'}`);
           if (!response.ok) throw new Error('Failed to fetch profile');
           const data = await response.json();
           const student = data.student;
   
-          document.getElementById('fullName').textContent = student.fullName;
-          document.getElementById('email').textContent = student.email;
-          document.getElementById('major').textContent = student.major;
+          document.getElementById('name').textContent =student.fullName;
           document.getElementById('year').textContent = student.year;
   
         } catch (err) {
